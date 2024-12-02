@@ -1,0 +1,38 @@
+name: Test Workflow for Assignment 11
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set Up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.x
+
+    - name: Install Dependencies
+      run: |
+        python3 -m pip install --upgrade pip
+
+    - name: Run Test Case 1
+      run: |
+        python3 find_lowest_number.py test_data/test1_input.txt output1.txt
+        diff -wB output1.txt test_data/test1_expected.txt
+
+    - name: Run Test Case 2
+      run: |
+        python3 find_lowest_number.py test_data/test2_input.txt output2.txt
+        diff -wB output2.txt test_data/test2_expected.txt
+
+    - name: Run Test Case 3
+      run: |
+        python3 find_lowest_number.py test_data/test3_input.txt output3.txt
+        diff -wB output3.txt test_data/test3_expected.txt
